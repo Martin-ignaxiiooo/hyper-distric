@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo logo-text-only">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="./index.html">Tienda</a>
+      <a href="./carrito.html">Carrito</a>
+      <button id="btn-logout-cuenta" class="btn-logout">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="cuenta-main">
+    <section class="cuenta-header">
+      <p class="section-label">Cuenta de cliente</p>
+      <h1>Mi cuenta Hyper Distric</h1>
+      <p class="section-desc">
+        Esta es la primera base del espacio de cliente. Más adelante aquí se podrán ver pedidos,
+        datos personales, direcciones y productos favoritos.
+      </p>
+    </section>
+
+    <section class="cuenta-grid">
+      <article class="cuenta-card cuenta-card-principal">
+        <span>PERFIL</span>
+        <h2 id="nombre-usuario-cuenta">Cliente Hyper Distric</h2>
+        <p id="rol-usuario-cuenta">Rol: cliente</p>
+      </article>
+
+      <article class="cuenta-card">
+        <span>01</span>
+        <h2>Mis pedidos</h2>
+        <p>Próximamente podrás revisar el historial de compras realizadas.</p>
+      </article>
+
+      <article class="cuenta-card">
+        <span>02</span>
+        <h2>Mis datos</h2>
+        <p>Base para guardar nombre, correo, dirección y datos de contacto.</p>
+      </article>
+
+      <article class="cuenta-card">
+        <span>03</span>
+        <h2>Favoritos</h2>
+        <p>Más adelante podrás guardar productos que te interesen.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="./js/cuenta.js"></script>
+</body>
+</html>

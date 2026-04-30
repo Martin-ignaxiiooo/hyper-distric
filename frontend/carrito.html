@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/logo.png" alt="Hyper Distric Logo">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="./index.html#inicio">Inicio</a>
+      <a href="./index.html#categorias">Categorías</a>
+      <a href="./index.html#destacados">Destacados</a>
+      <a href="./index.html#catalogo">Catálogo</a>
+      <a href="./index.html#contacto">Contacto</a>
+      <a href="./carrito.html">Carrito</a>
+      <a href="./login.html">Login</a>
+    </nav>
+  </header>
+
+  <main class="carrito-main">
+    <section class="carrito-header">
+      <p class="section-label">Tu selección</p>
+      <h1>Carrito de compras</h1>
+      <p class="section-desc">
+        Revisa los productos agregados antes de continuar.
+      </p>
+    </section>
+
+    <section class="carrito-account-cta oculto" id="carrito-account-cta">
+      <button type="button" class="carrito-account-close" id="cerrar-carrito-account-cta">
+        ×
+      </button>
+
+      <div class="carrito-account-copy">
+        <p class="section-label">Tu cuenta</p>
+        <h2>¿Ya tienes cuenta en Hyper Distric?</h2>
+        <p>
+          Inicia sesión para continuar con una experiencia más personalizada.
+          Más adelante también podrás registrar tu cuenta y guardar tus datos de compra.
+        </p>
+      </div>
+
+      <div class="carrito-account-actions">
+        <a href="./login.html" class="btn-principal">Iniciar sesión</a>
+        <a href="./login.html" class="btn-secundario">Crear cuenta</a>
+      </div>
+    </section>
+
+    <section class="carrito-layout">
+      <div class="carrito-lista" id="carrito-lista"></div>
+
+      <aside class="carrito-resumen">
+            <h2>Resumen</h2>
+            <p class="carrito-resumen-copy">
+                Tu selección mantiene la vibra Hyper Distric: urbana, limpia y con actitud.
+            </p>
+
+            <div class="resumen-linea">
+                <span>Productos</span>
+                <span id="resumen-productos">0</span>
+            </div>
+
+            <div class="resumen-linea resumen-total">
+                <span>Total</span>
+                <span id="resumen-total">CLP $0</span>
+            </div>
+
+            <button class="btn-principal btn-carrito-finalizar" id="btn-finalizar">
+                Finalizar compra
+            </button>
+
+            <a href="./index.html#catalogo" class="btn-secundario btn-carrito-seguir">
+                Seguir comprando
+            </a>
+
+            <button class="btn-vaciar-carrito" id="btn-vaciar-carrito">
+                Vaciar carrito
+            </button>
+
+            <div id="mensaje-carrito" class="mensaje-carrito oculto"></div>
+     </aside>
+    </section>
+  </main>
+
+  <script src="./js/carrito.js"></script>
+</body>
+</html>

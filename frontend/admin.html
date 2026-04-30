@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/logo.png" alt="Hyper Distric Logo">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="./index.html">Tienda</a>
+      <a href="./carrito.html">Carrito</a>
+      <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-header">
+      <p class="section-label">Panel interno</p>
+      <h1>Administración Hyper Distric</h1>
+      <p class="section-desc">
+        Esta es la primera base del panel administrativo. Desde aquí después podremos
+        gestionar productos, stock, imágenes y pedidos.
+      </p>
+    </section>
+
+    <section class="admin-grid">
+      <article class="admin-card">
+        <span>01</span>
+        <h2>Productos</h2>
+        <p>Próximamente podrás agregar, editar y eliminar productos del catálogo.</p>
+        <button class="btn-admin" disabled>Gestionar productos</button>
+      </article>
+
+      <article class="admin-card">
+        <span>02</span>
+        <h2>Stock</h2>
+        <p>Base para controlar disponibilidad de prendas, tallas y cantidades.</p>
+        <button class="btn-admin" disabled>Controlar stock</button>
+      </article>
+
+      <article class="admin-card">
+        <span>03</span>
+        <h2>Pedidos</h2>
+        <p>Más adelante se podrá revisar compras simuladas o pedidos registrados.</p>
+        <button class="btn-admin" disabled>Ver pedidos</button>
+      </article>
+    </section>
+  </main>
+
+  <script src="./js/admin.js"></script>
+</body>
+</html>
