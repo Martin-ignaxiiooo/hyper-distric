@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/logo.webp" alt="Hyper Distric Logo">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="./index.html">Tienda</a>
+      <a href="./carrito.html">Carrito</a>
+      <a href="#datos-cuenta">Mis datos</a>
+      <a href="#pedidos-cuenta">Mis pedidos</a>
+      <button id="btn-logout-cuenta" class="btn-logout">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="cuenta-main">
+    <section class="cuenta-header">
+      <p class="section-label">Cuenta de cliente</p>
+      <h1 id="titulo-cuenta">Mi cuenta Hyper Distric</h1>
+      <p class="section-desc">
+        Revisa tus datos, compras realizadas y el estado de tus pedidos.
+      </p>
+    </section>
+
+    <section class="cuenta-grid cuenta-resumen-grid">
+      <article class="cuenta-card cuenta-card-principal">
+        <span>PERFIL</span>
+        <h2 id="nombre-usuario-cuenta">Cliente Hyper Distric</h2>
+        <p id="email-usuario-cuenta">Correo no disponible</p>
+        <p id="rol-usuario-cuenta">Rol: cliente</p>
+      </article>
+
+      <a href="#pedidos-cuenta" class="cuenta-card">
+        <span>01</span>
+        <h2 id="total-pedidos-cuenta">0</h2>
+        <p>Pedidos realizados</p>
+      </a>
+
+      <a href="#pedidos-cuenta" class="cuenta-card">
+        <span>02</span>
+        <h2 id="total-gastado-cuenta">CLP $0</h2>
+        <p>Total comprado</p>
+      </a>
+
+      <a href="#datos-cuenta" class="cuenta-card">
+        <span>03</span>
+        <h2 id="ultimo-pedido-cuenta">Sin pedidos</h2>
+        <p>Ultimo movimiento</p>
+      </a>
+    </section>
+
+    <section class="cuenta-panel" id="datos-cuenta">
+      <div class="cuenta-panel-header">
+        <div>
+          <p class="section-label">Mis datos</p>
+          <h2>Informacion personal</h2>
+        </div>
+      </div>
+
+      <div class="cuenta-datos-grid">
+        <article class="cuenta-dato">
+          <span>Nombre</span>
+          <strong id="dato-nombre">-</strong>
+        </article>
+
+        <article class="cuenta-dato">
+          <span>Correo</span>
+          <strong id="dato-email">-</strong>
+        </article>
+
+        <article class="cuenta-dato">
+          <span>Tipo de cuenta</span>
+          <strong id="dato-rol">Cliente</strong>
+        </article>
+
+        <article class="cuenta-dato">
+          <span>Estado</span>
+          <strong>Activa</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="cuenta-panel" id="pedidos-cuenta">
+      <div class="cuenta-panel-header">
+        <div>
+          <p class="section-label">Mis pedidos</p>
+          <h2>Historial de compras</h2>
+        </div>
+
+        <button type="button" class="btn-secundario" id="btn-recargar-pedidos">Actualizar</button>
+      </div>
+
+      <div id="mensaje-pedidos-cuenta" class="mensaje-carrito info">Cargando pedidos...</div>
+      <div id="lista-pedidos-cuenta" class="cuenta-pedidos-lista"></div>
+    </section>
+  </main>
+
+  <script src="./js/cuenta.js"></script>
+  <script src="./js/nav-auth.js"></script>
+</body>
+</html>
+
+

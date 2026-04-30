@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="auth-split-page login-split-page">
+  <header class="navbar auth-split-navbar">
+    <a href="./index.html" class="logo logo-text-only">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links auth-split-nav">
+      <a href="./index.html#inicio">Inicio</a>
+      <a href="./index.html#catalogo">Catálogo</a>
+      <a href="./index.html#contacto">Contacto</a>
+      <a href="./index.html" class="nav-volver">Volver tienda</a>
+    </nav>
+  </header>
+
+  <main class="auth-split-main">
+    <section class="auth-split-layout">
+      <section class="auth-split-form-panel">
+        <div class="auth-split-form-inner">
+          <div class="auth-form-brand">
+            <img src="./img/logo.webp" alt="Hyper Distric Logo">
+            <span>Hyper Distric</span>
+          </div>
+
+          <span class="auth-split-kicker">HYPER MEMBER</span>
+
+          <h1>Bienvenido de vuelta</h1>
+
+          <p class="auth-split-desc">
+            Ingresa a tu cuenta para continuar tu compra, revisar tu perfil y mantenerte listo para próximos drops.
+          </p>
+
+          <form id="form-login" class="auth-split-form">
+            <div class="form-grupo">
+              <label for="usuario">Usuario o correo</label>
+              <input type="text" id="usuario" placeholder="Ej: nombre@gmail.com" autocomplete="username">
+            </div>
+
+            <div class="form-grupo">
+              <label for="password">Contraseña</label>
+
+              <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+                <button type="button" id="btn-mostrar-password" class="btn-mostrar-password">
+                  Mostrar
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-principal auth-split-submit">
+              Entrar a mi cuenta
+            </button>
+
+            <div id="mensaje-login" class="mensaje-login oculto"></div>
+          </form>
+
+          <div class="auth-split-bottom-link">
+            <p>¿Aún no tienes cuenta?</p>
+            <a href="./registro.html">Crear cuenta</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-split-visual auth-split-visual-login">
+        <img src="./img/auth/login-streetwear.webp" alt="Outfit streetwear Hyper Distric para iniciar sesión">
+
+        <div class="auth-split-visual-overlay"></div>
+
+        <div class="auth-split-visual-content">
+          <div class="auth-split-chips">
+            <span>Hoodies</span>
+            <span>Oversize</span>
+            <span>New Drop</span>
+          </div>
+
+          <div>
+            <h2>Vuelve al distrito</h2>
+            <p>Tu perfil, tus compras y tu estilo en un solo acceso.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./js/login.js"></script>
+  <script src="./js/nav-auth.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra Exitosa | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .exito-container {
+      max-width: 600px;
+      margin: 120px auto;
+      text-align: center;
+      padding: 60px 40px;
+      background: linear-gradient(145deg, #141920, #0D1117);
+      border-radius: 24px;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(89, 227, 255, 0.12);
+      font-family: "Inter", sans-serif;
+    }
+    .exito-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(89, 227, 255, 0.08);
+      box-shadow: 0 0 20px rgba(89, 227, 255, 0.2);
+    }
+    .exito-icon svg {
+      width: 40px;
+      height: 40px;
+      color: #59e3ff;
+      stroke-width: 2.5;
+    }
+    .exito-title {
+      color: #fff;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .exito-text {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .exito-highlight {
+      color: #59e3ff;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/logo.webp" alt="Hyper Distric Logo">
+      <span>Hyper Distric</span>
+    </a>
+    <nav class="nav-links">
+      <a href="./index.html#inicio">Inicio</a>
+      <a href="./index.html#catalogo">Catálogo</a>
+      <a href="./carrito.html">Carrito</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="exito-container">
+      <div class="exito-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1 class="exito-title">¡Pago Procesado!</h1>
+      <p class="exito-text">
+        Hemos procesado tu pago correctamente.<br>
+        ya puedes ver la compra en <span class="exito-highlight">tu perfil</span>.
+      </p>
+      <a href="./index.html#catalogo" class="btn-principal" style="display:inline-block; padding: 14px 32px; font-size: 1rem; border-radius: 12px; font-weight: 600;">Volver a la tienda</a>
+    </div>
+  </main>
+
+  <script src="./js/nav-auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const params = new URLSearchParams(window.location.search);
+        const pedidoId = params.get('pedido_id');
+        const metodo = params.get('metodo');
+        
+        const clave = window.obtenerClaveCarrito ? window.obtenerClaveCarrito() : "carritoHyperDistric";
+        localStorage.removeItem(clave);
+        if (window.actualizarContadorCarrito) window.actualizarContadorCarrito();
+
+        // El webhook del backend se encarga automáticamente de validar el pago con Mercado Pago
+        // y descontar el stock. Ya no dependemos de este script inseguro.
+        if (metodo === 'mp' && pedidoId) {
+            console.log("Pago procesado por Mercado Pago. El servidor validará la transacción vía Webhook.");
+        }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | Hyper Distric</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/logo.webp" alt="Hyper Distric Logo">
+      <span>Hyper Distric</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="./index.html">Tienda</a>
+      <a href="./carrito.html">Carrito</a>
+      <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-header">
+      <p class="section-label">Panel interno</p>
+      <h1>Administración Hyper Distric</h1>
+      <p class="section-desc">
+        Esta es la primera base del panel administrativo. Desde aquí después podremos
+        gestionar productos, stock, imágenes y pedidos.
+      </p>
+    </section>
+
+    <div id="mensaje-admin" class="mensaje-carrito oculto"></div>
+
+    <section class="admin-grid">
+      <article class="admin-card">
+        <span>Productos</span>
+        <h2 id="stat-total-productos">0</h2>
+        <p>Total de productos</p>
+      </article>
+
+      <article class="admin-card">
+        <span>Usuarios</span>
+        <h2 id="stat-total-usuarios">0</h2>
+        <p>Usuarios registrados</p>
+      </article>
+
+      <article class="admin-card">
+        <span>Pedidos</span>
+        <h2 id="stat-total-pedidos">0</h2>
+        <p>Pedidos realizados</p>
+      </article>
+
+      <article class="admin-card">
+        <span>Ingresos</span>
+        <h2 id="stat-ingresos-totales">CLP $0</h2>
+        <p>Ingresos totales</p>
+      </article>
+    </section>
+
+    <section class="admin-grid">
+      <article class="admin-card">
+        <span>01</span>
+        <h2>Productos</h2>
+        <p>Agrega, edita y elimina productos del catálogo.</p>
+        <button id="btn-nav-productos" class="btn-admin">Gestionar productos</button>
+      </article>
+
+      <article class="admin-card">
+        <span>02</span>
+        <h2>Stock</h2>
+        <p>Control rápido de la disponibilidad de prendas y cantidades.</p>
+        <button id="btn-nav-stock" class="btn-admin">Controlar stock</button>
+      </article>
+
+      <article class="admin-card">
+        <span>03</span>
+        <h2>Pedidos</h2>
+        <p>Revisa las ventas registradas y el dinero recaudado.</p>
+        <button id="btn-nav-pedidos" class="btn-admin">Ver pedidos</button>
+      </article>
+
+      <article class="admin-card">
+        <span>04</span>
+        <h2>Usuarios</h2>
+        <p>Revisa los usuarios registrados en la tienda.</p>
+        <button id="btn-nav-usuarios" class="btn-admin">Ver usuarios</button>
+      </article>
+    </section>
+
+    
+    <section id="panel-productos" class="admin-panel" style="display: none; margin-top: 40px;">
+      <h2 style="margin-bottom: 20px;">Gestión de Productos</h2>
+      <button id="btn-nuevo-producto" class="btn-principal" style="margin-bottom: 20px;">+ Nuevo Producto</button>
+      
+      <div id="form-producto-container" style="display: none; background: var(--bg-card); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid var(--border-soft);">
+        <h3 id="form-producto-titulo" style="margin-bottom: 20px;">Crear Producto</h3>
+        <form id="form-producto" class="form-grupo">
+          <input type="hidden" id="prod-id">
+          
+          <label>Nombre</label>
+          <input type="text" id="prod-nombre" required>
+          
+          <label>Slug (URL amigable, ej: polera-negra)</label>
+          <input type="text" id="prod-slug" required>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label>Precio (CLP)</label>
+              <input type="number" id="prod-precio" required style="width: 100%;">
+            </div>
+            <div>
+              <label>Stock inicial</label>
+              <input type="number" id="prod-stock" required style="width: 100%;">
+            </div>
+          </div>
+          
+          <label>URL Imagen (ej: polera.webp, ./img/polera.webp o https://...)</label>
+          <input type="text" id="prod-imagen" required>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label>Categoría</label>
+              <select id="prod-categoria" required style="width: 100%; padding: 15px; border-radius: 14px; background: rgba(7, 10, 15, 0.72); color: white; border: 1px solid rgba(255,255,255,0.09); font-family: 'Inter', sans-serif;">
+                <option value="1">Poleras</option>
+                <option value="2">Hoodies</option>
+                <option value="3">Pantalones</option>
+                <option value="4">Chaquetas</option>
+              </select>
+            </div>
+            <div>
+              <label>Estilo</label>
+              <input type="text" id="prod-estilo">
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label>Color</label>
+              <input type="text" id="prod-color">
+            </div>
+            <div>
+              <label>Material</label>
+              <input type="text" id="prod-material">
+            </div>
+          </div>
+          
+          <label>Descripción</label>
+          <textarea id="prod-descripcion" style="width:100%; padding: 15px; border-radius: 14px; background: rgba(7, 10, 15, 0.72); color: white; border: 1px solid rgba(255,255,255,0.09); min-height: 100px; margin-bottom: 10px; font-family: 'Inter', sans-serif;"></textarea>
+          
+          <label>Badge (Opcional, ej: Nuevo Drop)</label>
+          <input type="text" id="prod-badge">
+          
+          <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button type="submit" class="btn-principal">Guardar Producto</button>
+            <button type="button" id="btn-cancelar-producto" class="btn-secundario">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="lista-productos" style="display: grid; gap: 15px;">
+        
+      </div>
+    </section>
+
+    <section id="panel-stock" class="admin-panel" style="display: none; margin-top: 40px;">
+      <h2 style="margin-bottom: 10px;">Control de Stock Rápido</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 25px;">Actualiza el stock directamente y presiona guardar.</p>
+      <div id="lista-stock" style="display: grid; gap: 15px;">
+        
+      </div>
+    </section>
+
+    <section id="panel-pedidos" class="admin-panel" style="display: none; margin-top: 40px;">
+      <h2 style="margin-bottom: 25px;">Historial de Pedidos</h2>
+      <div id="lista-pedidos" style="display: grid; gap: 15px;">
+        
+      </div>
+    </section>
+
+    <section id="panel-usuarios" class="admin-panel" style="display: none; margin-top: 40px;">
+      <h2 style="margin-bottom: 25px;">Usuarios Registrados</h2>
+      <div id="lista-usuarios" style="display: grid; gap: 15px;">
+        
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./js/admin.js"></script>
+  <script src="./js/nav-auth.js"></script>
+</body>
+</html>
+
+
