@@ -1,65 +1,5 @@
-const productos = [
-  {
-    id: 1,
-    slug: "polera-oversize-negra",
-    nombre: "Polera Oversize Negra",
-    precio: 14990,
-    color: "Negro",
-    stock: 10,
-    categoria: "Poleras",
-    estilo: "Oversized fit",
-    material: "Algodón suave",
-    descripcion:
-      "Polera Oversize Negra con enfoque oversized fit, pensada para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/polera-oversize-negra.jpg",
-    badge: "Streetwear"
-  },
-  {
-    id: 2,
-    slug: "hoodie-street-gris",
-    nombre: "Hoodie Street Gris",
-    precio: 29990,
-    color: "Gris",
-    stock: 8,
-    categoria: "Hoodies",
-    estilo: "Streetwear urbano",
-    material: "Algodón premium",
-    descripcion:
-      "Hoodie Street Gris con enfoque streetwear urbano, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/hoodie-street-gris.jpg",
-    badge: "Nuevo Drop"
-  },
-  {
-    id: 3,
-    slug: "pantalon-cargo-beige",
-    nombre: "Pantalón Cargo Beige",
-    precio: 24990,
-    color: "Beige",
-    stock: 6,
-    categoria: "Pantalones",
-    estilo: "Drop urbano",
-    material: "Tela resistente urbana",
-    descripcion:
-      "Pantalón Cargo Beige con enfoque drop urbano, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/pantalon-cargo-beige.jpg",
-    badge: "Nueva colección"
-  },
-  {
-    id: 4,
-    slug: "chaqueta-denim-azul",
-    nombre: "Chaqueta Denim Azul",
-    precio: 34990,
-    color: "Azul",
-    stock: 5,
-    categoria: "Chaquetas",
-    estilo: "Streetwear denim",
-    material: "Denim",
-    descripcion:
-      "Chaqueta Denim Azul con enfoque streetwear denim, pensada para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/chaqueta-denim-azul.jpg",
-    badge: "Colección"
-  }
-];
+let productos = [];
+let categoriaActual = null;
 
 function formatearPrecio(precio) {
   return `CLP $${Number(precio).toLocaleString("es-CL")}`;
@@ -90,9 +30,17 @@ function renderCatalogo() {
   const contenedorDestacados = document.getElementById("contenedor-destacados");
 
   if (contenedorCatalogo) {
-    contenedorCatalogo.innerHTML = productos
-      .map((producto) => crearCardProducto(producto))
-      .join("");
+    const productosFiltrados = categoriaActual 
+      ? productos.filter(p => p.categoria.toLowerCase() === categoriaActual.toLowerCase())
+      : productos;
+      
+    if (productosFiltrados.length === 0) {
+      contenedorCatalogo.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #888;">No hay productos en esta categoría.</p>`;
+    } else {
+      contenedorCatalogo.innerHTML = productosFiltrados
+        .map((producto) => crearCardProducto(producto))
+        .join("");
+    }
   }
 
   if (contenedorDestacados) {
@@ -103,6 +51,55 @@ function renderCatalogo() {
   }
 }
 
+async function cargarProductos() {
+  try {
+    const respuesta = await fetch("http://localhost:3002/productos");
+    if (!respuesta.ok) {
+      throw new Error("Error al obtener los productos");
+    }
+    productos = await respuesta.json();
+    renderCatalogo();
+  } catch (error) {
+    console.error("Hubo un problema con la petición fetch:", error);
+    const contenedorCatalogo = document.getElementById("contenedor-productos");
+    if (contenedorCatalogo) {
+      contenedorCatalogo.innerHTML = `<p>Error al cargar los productos. Por favor, asegúrate de que el backend esté ejecutándose.</p>`;
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  renderCatalogo();
+  cargarProductos();
+
+  
+  const categoriaCards = document.querySelectorAll('.categoria-card');
+  const catalogoSection = document.getElementById('catalogo');
+
+  categoriaCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      
+      const nombreCat = card.querySelector('span').innerText.trim();
+      
+      
+      if (categoriaActual === nombreCat) {
+        categoriaActual = null;
+        card.style.border = '';
+      } else {
+        categoriaActual = nombreCat;
+        
+        categoriaCards.forEach(c => c.style.border = '');
+        
+        card.style.border = '2px solid var(--accent-main)';
+      }
+      
+      renderCatalogo();
+      
+      
+      if (catalogoSection) {
+        catalogoSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
 });

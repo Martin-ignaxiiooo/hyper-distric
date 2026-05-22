@@ -14,15 +14,6 @@ function mostrarMensajeRegistro(texto, tipo = "error") {
   mensajeRegistro.classList.add(tipo);
 }
 
-function obtenerUsuariosRegistrados() {
-  const usuariosGuardados = localStorage.getItem("usuariosRegistradosHyperDistric");
-  return usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
-}
-
-function guardarUsuariosRegistrados(usuarios) {
-  localStorage.setItem("usuariosRegistradosHyperDistric", JSON.stringify(usuarios));
-}
-
 function nombreValido(nombre) {
   const partesNombre = nombre.trim().split(" ");
 
@@ -70,7 +61,7 @@ if (btnMostrarPasswordRegistro) {
 }
 
 if (formRegistro) {
-  formRegistro.addEventListener("submit", (event) => {
+  formRegistro.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const nombre = inputNombre.value.trim();
@@ -103,39 +94,33 @@ if (formRegistro) {
       return;
     }
 
-    const usuariosRegistrados = obtenerUsuariosRegistrados();
+    try {
+      const response = await fetch("http://localhost:3001/usuarios/registro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nombre, email: correo, password })
+      });
 
-    const usuarioExiste = usuariosRegistrados.find((usuario) => {
-      return usuario.usuario === correo;
-    });
+      const data = await response.json();
 
-    if (usuarioExiste) {
-      mostrarMensajeRegistro("Este correo ya está registrado. Intenta iniciar sesión.", "error");
-      return;
+      if (response.ok) {
+        localStorage.removeItem("usuarioHyperDistric");
+        localStorage.removeItem("adminHyperDistric");
+        sessionStorage.setItem("registroRecienteHyperDistric", correo);
+
+        mostrarMensajeRegistro("Cuenta creada correctamente. Inicia sesion con tus datos.", "exito");
+
+        setTimeout(() => {
+          window.location.href = "./login.html?registro=ok";
+        }, 900);
+      } else {
+        mostrarMensajeRegistro(data.mensaje || data.error || "Error al registrar el usuario.", "error");
+      }
+    } catch (error) {
+      console.error(error);
+      mostrarMensajeRegistro("Error de conexión con el servidor.", "error");
     }
-
-    const nuevoUsuario = {
-      nombre: nombre,
-      usuario: correo,
-      password: password,
-      rol: "cliente"
-    };
-
-    usuariosRegistrados.push(nuevoUsuario);
-    guardarUsuariosRegistrados(usuariosRegistrados);
-
-    localStorage.setItem("usuarioHyperDistric", JSON.stringify({
-      nombre: nuevoUsuario.nombre,
-      usuario: nuevoUsuario.usuario,
-      rol: nuevoUsuario.rol
-    }));
-
-    localStorage.removeItem("adminHyperDistric");
-
-    mostrarMensajeRegistro("Cuenta creada correctamente. Entrando a tu perfil...", "exito");
-
-    setTimeout(() => {
-      window.location.href = "./cuenta.html";
-    }, 900);
   });
 }

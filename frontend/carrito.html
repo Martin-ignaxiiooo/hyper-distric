@@ -14,7 +14,7 @@
 <body>
   <header class="navbar">
     <a href="./index.html" class="logo">
-      <img src="./img/logo.png" alt="Hyper Distric Logo">
+      <img src="./img/logo.webp" alt="Hyper Distric Logo">
       <span>Hyper Distric</span>
     </a>
 
@@ -94,6 +94,58 @@
     </section>
   </main>
 
+  
+  <div id="modal-pago" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#0d0f14; border:1px solid #1e2130; border-radius:20px; padding:40px; max-width:480px; width:90%; position:relative; box-shadow:0 25px 60px rgba(0,0,0,0.6);">
+      
+      <button id="cerrar-modal-pago" style="position:absolute; top:16px; right:20px; background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer; line-height:1;">&times;</button>
+
+      <p style="color:#00c8ff; font-size:0.75rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;"></p>
+      <h2 style="color:#fff; margin:0 0 28px 0; font-size:1.5rem;">Datos de pago</h2>
+
+      <form id="form-pago">
+        
+        <div style="margin-bottom:18px;">
+          <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:6px;">Número de tarjeta</label>
+          <input id="pago-numero" type="text" maxlength="19" inputmode="numeric" autocomplete="cc-number" required placeholder="1234 5678 9012 3456"
+            style="width:100%; box-sizing:border-box; background:#1a1d26; border:1px solid #2a2d3a; color:#fff; padding:14px 16px; border-radius:10px; font-size:1rem; outline:none; font-family:monospace; letter-spacing:2px;"
+            oninput="this.value=this.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim()">
+        </div>
+
+        
+        <div style="margin-bottom:18px;">
+          <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:6px;">Nombre en la tarjeta</label>
+          <input id="pago-nombre" type="text" minlength="8" autocomplete="cc-name" required placeholder="JUAN PEREZ"
+            style="width:100%; box-sizing:border-box; background:#1a1d26; border:1px solid #2a2d3a; color:#fff; padding:14px 16px; border-radius:10px; font-size:1rem; outline:none; text-transform:uppercase;">
+        </div>
+
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+          <div>
+            <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:6px;">Expiración (MM/AA)</label>
+            <input id="pago-expiracion" type="text" maxlength="5" inputmode="numeric" autocomplete="cc-exp" required placeholder="08/27"
+              style="width:100%; box-sizing:border-box; background:#1a1d26; border:1px solid #2a2d3a; color:#fff; padding:14px 16px; border-radius:10px; font-size:1rem; outline:none;"
+              oninput="this.value=this.value.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'$1/$2')">
+          </div>
+          <div>
+            <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:6px;">CVV</label>
+            <input id="pago-cvv" type="text" maxlength="3" inputmode="numeric" autocomplete="cc-csc" required placeholder="123"
+              style="width:100%; box-sizing:border-box; background:#1a1d26; border:1px solid #2a2d3a; color:#fff; padding:14px 16px; border-radius:10px; font-size:1rem; outline:none;"
+              oninput="this.value=this.value.replace(/\D/g,'').slice(0,3)">
+          </div>
+        </div>
+
+        <div id="pago-error" style="display:none; color:#f87171; background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:0.9rem;"></div>
+
+        <button id="btn-confirmar-pago" type="submit"
+          style="width:100%; background:#00c8ff; color:#000; border:none; padding:16px; border-radius:12px; font-size:1rem; font-weight:700; cursor:pointer; letter-spacing:1px; transition:opacity 0.2s;">
+          Confirmar pago
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script src="./js/carrito.js"></script>
+  <script src="./js/nav-auth.js"></script>
 </body>
 </html>

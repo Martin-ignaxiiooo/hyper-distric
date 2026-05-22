@@ -1,66 +1,4 @@
-const productos = [
-  {
-    id: 1,
-    slug: "polera-oversize-negra",
-    nombre: "Polera Oversize Negra",
-    precio: 14990,
-    color: "Negro",
-    stock: 10,
-    categoria: "Poleras",
-    estilo: "Oversized fit",
-    material: "Algodón suave",
-    descripcion:
-      "Polera Oversize Negra con enfoque oversized fit, pensada para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/polera-oversize-negra.jpg",
-    badge: "Streetwear"
-  },
-  {
-    id: 2,
-    slug: "hoodie-street-gris",
-    nombre: "Hoodie Street Gris",
-    precio: 29990,
-    color: "Gris",
-    stock: 8,
-    categoria: "Hoodies",
-    estilo: "Streetwear urbano",
-    material: "Algodón premium",
-    descripcion:
-      "Hoodie Street Gris con enfoque streetwear urbano, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/hoodie-street-gris.jpg",
-    badge: "Nuevo Drop"
-  },
-  {
-    id: 3,
-    slug: "pantalon-cargo-beige",
-    nombre: "Pantalón Cargo Beige",
-    precio: 24990,
-    color: "Beige",
-    stock: 6,
-    categoria: "Pantalones",
-    estilo: "Drop urbano",
-    material: "Tela resistente urbana",
-    descripcion:
-      "Pantalón Cargo Beige con enfoque drop urbano, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/pantalon-cargo-beige.jpg",
-    badge: "Nueva colección"
-  },
-  {
-    id: 4,
-    slug: "chaqueta-denim-azul",
-    nombre: "Chaqueta Denim Azul",
-    precio: 34990,
-    color: "Azul",
-    stock: 5,
-    categoria: "Chaquetas",
-    estilo: "Streetwear denim",
-    material: "Denim",
-    descripcion:
-      "Chaqueta Denim Azul con enfoque streetwear denim, pensada para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.",
-    imagen: "./img/chaqueta-denim-azul.jpg",
-    badge: "Colección"
-  }
-];
-
+let productos = [];
 const breadcrumbProducto = document.getElementById("breadcrumb-producto");
 const detalleImagen = document.getElementById("detalle-imagen");
 const detalleInfo = document.getElementById("detalle-info");
@@ -81,7 +19,7 @@ function formatearPrecio(precio) {
 }
 
 function crearDescripcionMarca(producto) {
-  return `${producto.nombre} con enfoque ${producto.estilo.toLowerCase()}, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.`;
+  return `${producto.nombre} con enfoque ${producto.estilo ? producto.estilo.toLowerCase() : ''}, pensado para looks urbanos, presencia visual fuerte y una línea más de marca real que de catálogo básico.`;
 }
 
 function obtenerCarritoActual() {
@@ -99,7 +37,7 @@ function mostrarMensajeDetalle(texto, tipo = "exito") {
   if (!mensajeDetalle) return;
 
   mensajeDetalle.textContent = texto;
-  mensajeDetalle.classList.remove("oculto", "exito", "info");
+  mensajeDetalle.classList.remove("oculto", "exito", "info", "error");
   mensajeDetalle.classList.add(tipo);
 }
 
@@ -109,14 +47,108 @@ function ocultarMensajeDetalle() {
   if (!mensajeDetalle) return;
 
   mensajeDetalle.classList.add("oculto");
-  mensajeDetalle.classList.remove("exito", "info");
+  mensajeDetalle.classList.remove("exito", "info", "error");
   mensajeDetalle.textContent = "";
+}
+
+function asegurarModalDecisionCarrito() {
+  let modal = document.getElementById("decision-carrito-modal");
+
+  if (modal) return modal;
+
+  modal = document.createElement("div");
+  modal.id = "decision-carrito-modal";
+  modal.className = "decision-carrito-modal oculto";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-labelledby", "decision-carrito-titulo");
+
+  modal.innerHTML = `
+    <div class="decision-carrito-card">
+      <button type="button" class="decision-carrito-cerrar" aria-label="Cerrar">x</button>
+      <span class="mini-badge">Carrito</span>
+      <h2 id="decision-carrito-titulo">Producto agregado</h2>
+      <p id="decision-carrito-texto">Quieres seguir comprando o ir a pagar?</p>
+
+      <div class="decision-carrito-producto">
+        <img id="decision-carrito-imagen" src="" alt="">
+        <div>
+          <strong id="decision-carrito-nombre"></strong>
+          <span id="decision-carrito-detalle"></span>
+        </div>
+      </div>
+
+      <div class="decision-carrito-acciones">
+        <a href="./index.html#catalogo" class="btn-secundario">Seguir comprando</a>
+        <a href="./carrito.html" class="btn-principal">Ir a pagar</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (event) => {
+    if (
+      event.target === modal ||
+      event.target.classList.contains("decision-carrito-cerrar")
+    ) {
+      cerrarModalDecisionCarrito();
+    }
+  });
+
+  return modal;
+}
+
+function mostrarModalDecisionCarrito() {
+  if (!productoActual) return;
+
+  const modal = asegurarModalDecisionCarrito();
+  const imagen = modal.querySelector("#decision-carrito-imagen");
+  const nombre = modal.querySelector("#decision-carrito-nombre");
+  const detalle = modal.querySelector("#decision-carrito-detalle");
+
+  if (imagen) {
+    imagen.src = productoActual.imagen;
+    imagen.alt = productoActual.nombre;
+  }
+
+  if (nombre) nombre.textContent = productoActual.nombre;
+  if (detalle) detalle.textContent = `Talla ${tallaSeleccionada} - Cantidad ${cantidadSeleccionada}`;
+
+  modal.classList.remove("oculto");
+  document.body.classList.add("modal-abierto");
+}
+
+function cerrarModalDecisionCarrito() {
+  const modal = document.getElementById("decision-carrito-modal");
+
+  if (!modal) return;
+
+  modal.classList.add("oculto");
+  document.body.classList.remove("modal-abierto");
 }
 
 function agregarProductoAlCarrito() {
   if (!productoActual) return;
 
   const carrito = obtenerCarritoActual();
+
+  
+  let cantidadEnCarrito = 0;
+  carrito.forEach(item => {
+      if (item.id === productoActual.id) {
+          cantidadEnCarrito += item.cantidad;
+      }
+  });
+
+  
+  if (cantidadEnCarrito + cantidadSeleccionada > productoActual.stock) {
+      mostrarMensajeDetalle(
+          `¡Stock superado! Solo quedan ${productoActual.stock} unidades en total (tienes ${cantidadEnCarrito} en el carrito).`,
+          "error"
+      );
+      return;
+  }
 
   const existente = carrito.find(
     (item) => item.id === productoActual.id && item.talla === tallaSeleccionada
@@ -137,11 +169,14 @@ function agregarProductoAlCarrito() {
   }
 
   guardarCarrito(carrito);
+  if (window.actualizarContadorCarrito) window.actualizarContadorCarrito();
 
   mostrarMensajeDetalle(
     `${productoActual.nombre} agregado al carrito. Talla ${tallaSeleccionada} · Cantidad ${cantidadSeleccionada}`,
     "exito"
   );
+
+  mostrarModalDecisionCarrito();
 }
 
 function actualizarCantidadVista() {
@@ -218,6 +253,22 @@ function renderRelacionados(productoActual) {
       `
     )
     .join("");
+}
+
+async function cargarDatosYRenderizar() {
+  try {
+    const respuesta = await fetch("http://localhost:3002/productos");
+    if (!respuesta.ok) {
+      throw new Error("Error al obtener los productos");
+    }
+    productos = await respuesta.json();
+    renderProductoDetalle();
+  } catch (error) {
+    console.error("Hubo un problema con la petición fetch:", error);
+    if (detalleInfo) {
+      detalleInfo.innerHTML = "<p>Error al cargar el producto. Asegúrate de que el microservicio esté corriendo.</p>";
+    }
+  }
 }
 
 function renderProductoDetalle() {
@@ -356,5 +407,11 @@ function renderProductoDetalle() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderProductoDetalle();
+  cargarDatosYRenderizar();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    cerrarModalDecisionCarrito();
+  }
 });
